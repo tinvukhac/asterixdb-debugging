@@ -1,12 +1,15 @@
 import json
+import sys
 
 
-def main():
-    output_f = open('edges.csv', 'w')
+def main(argv):
+    input_file = argv[1]
+    output_file = argv[2]
+
+    output_f = open(output_file, 'w')
 
     print('Extract hyracks jobs graph')
-    data = json.load(open('spatial_join_hyracks_jobs.json'))
-    print(data['connectors'])
+    data = json.load(open(input_file))
     for entry in data['connectors']:
         output_f.writelines('{} {}\n'.format(entry['in-operator-id'], entry['out-operator-id']))
 
@@ -14,4 +17,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv)
